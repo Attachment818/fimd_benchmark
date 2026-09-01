@@ -10,7 +10,6 @@ dependencies:
   - pytorch-cuda=11.7
   # PyTorch 1.13 libtorch_cpu requires the legacy iJIT symbol removed by MKL 2024.1+.
   - mkl=2024.0
-  - intel-openmp=2024.0
   - numpy=1.23.5
   - scipy=1.9.3
   - scikit-image=0.19.3
