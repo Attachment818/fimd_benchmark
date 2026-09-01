@@ -9,6 +9,10 @@
     "source": "included in the official repository",
     "sha256": "52b6708629640ca883673b5d5c097c4ddad37d8048b33f09c8ca0d69db12c40e"
   },
-  "adapter_modifications": [],
-  "environment": "pending"
+  "adapter_modifications": [
+    "Official model and frontend loaded without editing third_party code",
+    "FIMD query/reference resize and coordinate mapping implemented in adapters",
+    "Mutual matches are filtered by homography RANSAC before quadratic fitting"
+  ],
+  "environment": "envs/superpoint.yaml"
 }

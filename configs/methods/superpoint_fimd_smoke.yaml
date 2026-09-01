@@ -1,0 +1,29 @@
+method: SuperPoint
+official_commit: 1fda796addba9b6f8e79d586a3699700a86b1cea
+weight: third_party/SuperPoint/superpoint_v1.pth
+weight_sha256: 52b6708629640ca883673b5d5c097c4ddad37d8048b33f09c8ca0d69db12c40e
+
+input:
+  query: t
+  reference: r
+  resize_reference_to_query: true
+  preprocessing: green
+  model_width: 1024
+  model_height: 1024
+
+superpoint:
+  nms_distance: 4
+  confidence_threshold: 0.015
+  nearest_neighbor_threshold: 0.7
+
+geometry:
+  model: quadratic
+  prefilter: homography_ransac
+  ransac_threshold_px: 5.0
+  minimum_quadratic_points: 6
+
+smoke_test:
+  pair_id: "02"
+  device: cuda:0
+  status: pending
+
