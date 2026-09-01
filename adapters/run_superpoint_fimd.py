@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
 from time import perf_counter
@@ -75,6 +76,22 @@ def synchronize(device: str) -> None:
         torch.cuda.synchronize()
 
 
+@contextmanager
+def official_legacy_grid_sample():
+    """Preserve the pre-PyTorch-1.3 grid_sample semantics used by this repo."""
+    original = torch.nn.functional.grid_sample
+
+    def compatible_grid_sample(*args, **kwargs):
+        kwargs.setdefault("align_corners", True)
+        return original(*args, **kwargs)
+
+    torch.nn.functional.grid_sample = compatible_grid_sample
+    try:
+        yield
+    finally:
+        torch.nn.functional.grid_sample = original
+
+
 def main() -> None:
     args = parse_args()
     if args.model_width % 8 or args.model_height % 8:
@@ -118,7 +135,7 @@ def main() -> None:
     model_load_seconds = perf_counter() - load_started
 
     inference_started = perf_counter()
-    with torch.inference_mode():
+    with torch.inference_mode(), official_legacy_grid_sample():
         query_points_model, query_desc, _ = frontend.run(query_input)
         reference_points_model, reference_desc, _ = frontend.run(reference_input)
     synchronize(args.device)
@@ -217,6 +234,9 @@ def main() -> None:
             "torch_cuda": torch.version.cuda,
             "opencv": cv2.__version__,
         },
+        "compatibility": {
+            "grid_sample_align_corners": True
+        },
     }
     (run_dir / "pair_result.json").write_text(
         json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8"
@@ -227,4 +247,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
