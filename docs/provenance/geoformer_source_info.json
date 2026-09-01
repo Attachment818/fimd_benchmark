@@ -1,0 +1,15 @@
+{
+  "method": "GeoFormer",
+  "official_repository": "https://github.com/ruc-aimc-lab/GeoFormer.git",
+  "commit": "8b9506e6e9c0e61848724955fb514824039b1ff7",
+  "branch_at_download": "main",
+  "downloaded_at": "2026-09-01T20:00:00+08:00",
+  "weight": {
+    "filename": "geoformer.ckpt",
+    "source": "official repository README Google Drive link",
+    "sha256": null,
+    "status": "not downloaded"
+  },
+  "adapter_modifications": [],
+  "environment": "pending"
+}

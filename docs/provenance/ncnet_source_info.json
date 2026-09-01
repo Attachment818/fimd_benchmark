@@ -1,0 +1,15 @@
+{
+  "method": "NCNet",
+  "official_repository": "https://github.com/ignacio-rocco/ncnet.git",
+  "commit": "116a9141f3a5ae16affa1f7c3c9f83899960ea3e",
+  "branch_at_download": "master",
+  "downloaded_at": "2026-09-01T20:00:00+08:00",
+  "weight": {
+    "filename": null,
+    "source": "official trained_models download scripts",
+    "sha256": null,
+    "status": "checkpoint choice not yet frozen"
+  },
+  "adapter_modifications": [],
+  "environment": "pending"
+}

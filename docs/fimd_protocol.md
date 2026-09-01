@@ -40,3 +40,10 @@ transform，但仍执行相同的 reference resize。
 
 每个方法保存代码和权重来源、commit、校验值、环境、运行配置、逐对结果、匹配点、
 内点、变换、aligned image、可视化、失败原因和分阶段计时。
+
+## 数据路径
+
+- 本地审计路径：`D:/ComputerCV/fimd_benchmark/data/FIMD`
+- 服务器运行路径：`/home/data1/zhangjunhong/fimd_benchmark/datasets/FIMD`
+
+适配器必须通过 `--data-root` 或配置文件接收路径，不在代码中硬编码本地或服务器路径。

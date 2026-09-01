@@ -1,0 +1,14 @@
+{
+  "method": "SuperPoint",
+  "official_repository": "https://github.com/magicleap/SuperPointPretrainedNetwork.git",
+  "commit": "1fda796addba9b6f8e79d586a3699700a86b1cea",
+  "branch_at_download": "master",
+  "downloaded_at": "2026-09-01T20:00:00+08:00",
+  "weight": {
+    "filename": "superpoint_v1.pth",
+    "source": "included in the official repository",
+    "sha256": "52b6708629640ca883673b5d5c097c4ddad37d8048b33f09c8ca0d69db12c40e"
+  },
+  "adapter_modifications": [],
+  "environment": "pending"
+}
