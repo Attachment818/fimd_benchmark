@@ -1,0 +1,18 @@
+fimd_benchmark/
+|-- README.md
+|-- DIRECTORY_STRUCTURE.txt
+|-- data/FIMD/                         # 原始数据，只读，不提交
+|-- supplementary_experiments/fimd/   # 学长历史资产，不提交
+|-- adapters/
+|   |-- common/
+|   `-- run_sift_fimd.py
+|-- configs/
+|   `-- protocol/
+|-- docs/
+|   `-- fimd_protocol.md
+|-- envs/
+|-- scripts/
+|   `-- audit_fimd_dataset.py
+|-- third_party/                       # 官方代码，不提交
+`-- outputs/{method}/{run_id}/         # 唯一运行目录，不提交
+

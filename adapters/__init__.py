@@ -1,0 +1,2 @@
+"""FIMD method adapters."""
+

@@ -1,0 +1,38 @@
+method: SIFT
+implementation: OpenCV
+purpose: FIMD protocol and visualization smoke test
+
+input:
+  query: t
+  reference: r
+  resize_reference_to_query: true
+  preprocessing: green_clahe
+  clahe_clip_limit: 2.0
+  clahe_tile_grid: [8, 8]
+
+sift:
+  nfeatures: 5000
+  contrast_threshold: 0.01
+  ratio_threshold: 0.75
+
+geometry:
+  model: quadratic
+  prefilter: homography_ransac
+  ransac_threshold_px: 5.0
+  minimum_quadratic_points: 6
+
+visualization:
+  reference_weight: 0.5
+  aligned_query_weight: 0.5
+  reference_control_point_color_bgr: [0, 255, 0]
+  predicted_control_point_color_bgr: [0, 0, 255]
+
+smoke_results:
+  FIMD02:
+    ratio_test_matches: 188
+    ransac_inliers: 98
+    mle_px: 4.072584687352857
+  FIMD68:
+    ratio_test_matches: 77
+    ransac_inliers: 27
+    mle_px: 19.140079356423175

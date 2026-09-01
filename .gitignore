@@ -1,0 +1,26 @@
+# FIMD 原始数据与历史成品不进入 Git
+/data/
+/supplementary_experiments/
+
+# 第三方仓库、模型权重和本地环境
+/third_party/
+/weights/
+/.venv/
+/.git_codex_backup/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# 运行输出：仅按需强制提交轻量汇总文件
+/outputs/
+/tmp/
+*.log
+nohup.out
+
+# Python / IDE
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.idea/
+.vscode/
