@@ -1,15 +1,13 @@
-name: fimd_geoformer
+name: fimd_geoformer_v2
 channels:
   - pytorch
   - nvidia
   - conda-forge
 dependencies:
-  - python=3.8
-  - pytorch=1.13.1
-  - torchvision=0.14.1
-  - pytorch-cuda=11.7
-  # PyTorch 1.13 libtorch_cpu requires the legacy iJIT symbol removed by MKL 2024.1+.
-  - mkl=2024.0
+  - python=3.10
+  - pytorch=2.2.2
+  - torchvision=0.17.2
+  - pytorch-cuda=12.1
   - numpy=1.23.5
   - scipy=1.9.3
   - scikit-image=0.19.3
