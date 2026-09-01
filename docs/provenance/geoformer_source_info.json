@@ -7,13 +7,39 @@
   "weight": {
     "filename": "geoformer.ckpt",
     "source": "official repository README Google Drive link",
-    "sha256": null,
-    "status": "downloaded_by_user; pending placement and checksum verification"
+    "sha256": "9d8b3743a1c75b1c307846145ad93f0e329a5e7cd0b06f3112c7931558dcef60",
+    "status": "verified on server"
   },
   "adapter_modifications": [
     "Official model modules are imported without executing the hard-coded demo at the end of inference.py",
     "Official FIRE grayscale short-side-768 preprocessing is reproduced in the adapter",
     "Matches are mapped back to FIMD query coordinates before shared RANSAC and quadratic fitting"
   ],
-  "environment": "envs/geoformer.yaml"
+  "environment": {
+    "specification": "envs/geoformer.yaml",
+    "name": "fimd_geoformer_v2",
+    "python": "3.10",
+    "pytorch": "2.2.2",
+    "pytorch_cuda": "12.1",
+    "opencv": "4.6.0",
+    "kornia": "0.6.12"
+  },
+  "checkpoint_compatibility": {
+    "missing_keys": [],
+    "unexpected_keys": [
+      "geo_module.merge_desc.weight",
+      "geo_module.merge_desc.bias"
+    ],
+    "loading_policy": "Matches the official inference implementation: strict=false"
+  },
+  "smoke_tests": [
+    {
+      "pair_id": "02",
+      "status": "passed",
+      "matches": 5581,
+      "ransac_inliers": 4024,
+      "mle_px": 2.6578156576450676,
+      "run_directory": "outputs/GeoFormer/20260902_012924_726943_pair02_geoformer_quadratic_smoke"
+    }
+  ]
 }
