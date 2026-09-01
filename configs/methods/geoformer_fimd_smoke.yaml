@@ -31,4 +31,8 @@ smoke_test:
 secondary_smoke_test:
   pair_id: "68"
   device: cuda:0
-  status: pending
+  status: passed
+  run_directory: outputs/GeoFormer/20260902_013145_125014_pair68_geoformer_quadratic_smoke
+  matches: 3169
+  ransac_inliers: 1152
+  mle_px: 7.628058231066086

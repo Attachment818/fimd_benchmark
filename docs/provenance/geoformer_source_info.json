@@ -40,6 +40,14 @@
       "ransac_inliers": 4024,
       "mle_px": 2.6578156576450676,
       "run_directory": "outputs/GeoFormer/20260902_012924_726943_pair02_geoformer_quadratic_smoke"
+    },
+    {
+      "pair_id": "68",
+      "status": "passed",
+      "matches": 3169,
+      "ransac_inliers": 1152,
+      "mle_px": 7.628058231066086,
+      "run_directory": "outputs/GeoFormer/20260902_013145_125014_pair68_geoformer_quadratic_smoke"
     }
   ]
 }
