@@ -25,5 +25,17 @@ geometry:
 smoke_test:
   pair_id: "02"
   device: cuda:0
-  status: pending
+  status: passed
+  run_directory: outputs/SuperPoint/20260902_002716_367955_pair02_superpoint_quadratic_smoke
+  mutual_matches: 154
+  ransac_inliers: 55
+  mle_px: 4.631219772283969
 
+secondary_smoke_test:
+  pair_id: "68"
+  device: cuda:0
+  status: passed
+  run_directory: outputs/SuperPoint/20260902_002945_227745_pair68_superpoint_quadratic_smoke
+  mutual_matches: 71
+  ransac_inliers: 31
+  mle_px: 6.835829603226405

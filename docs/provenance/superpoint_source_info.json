@@ -11,8 +11,29 @@
   },
   "adapter_modifications": [
     "Official model and frontend loaded without editing third_party code",
+    "Official legacy descriptor sampling behavior is preserved with grid_sample align_corners=true",
     "FIMD query/reference resize and coordinate mapping implemented in adapters",
     "Mutual matches are filtered by homography RANSAC before quadratic fitting"
   ],
-  "environment": "envs/superpoint.yaml"
+  "environment": {
+    "specification": "envs/superpoint.yaml",
+    "python": "3.10.21",
+    "pytorch": "2.2.2",
+    "pytorch_cuda": "12.1",
+    "opencv": "4.10.0"
+  },
+  "smoke_tests": [
+    {
+      "pair_id": "02",
+      "status": "passed",
+      "mle_px": 4.631219772283969,
+      "run_directory": "outputs/SuperPoint/20260902_002716_367955_pair02_superpoint_quadratic_smoke"
+    },
+    {
+      "pair_id": "68",
+      "status": "passed",
+      "mle_px": 6.835829603226405,
+      "run_directory": "outputs/SuperPoint/20260902_002945_227745_pair68_superpoint_quadratic_smoke"
+    }
+  ]
 }
