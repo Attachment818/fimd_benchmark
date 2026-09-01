@@ -1,0 +1,48 @@
+{
+  "pair_id": "02",
+  "status": "success",
+  "direction": "query_t_to_resized_reference_r",
+  "geometry": "quadratic",
+  "device": "cuda:0",
+  "preprocessing": "official_grayscale",
+  "model_short_side": 768,
+  "match_threshold": 0.2,
+  "reference_scale_x": 0.654320987654321,
+  "reference_scale_y": 0.654320987654321,
+  "matches": 5581,
+  "ransac_inliers": 4024,
+  "control_point_errors_px": [
+    6.569150128492661,
+    4.538452921277263,
+    3.7539258410572445,
+    1.985615013437681,
+    1.4801457264436524,
+    1.2396906139678239,
+    2.2894081194206124,
+    2.6999568243169714,
+    0.7786486749288574,
+    1.155645485088909,
+    1.3216615480998597,
+    4.081486995209276
+  ],
+  "mle_px": 2.6578156576450676,
+  "checkpoint_loading": {
+    "missing_keys": [],
+    "unexpected_keys": [
+      "geo_module.merge_desc.weight",
+      "geo_module.merge_desc.bias"
+    ]
+  },
+  "timing_seconds": {
+    "preprocessing": 0.3625376580748707,
+    "model_load": 2.035633632913232,
+    "inference": 0.8189851730130613,
+    "geometry_and_warp": 0.4755115619627759,
+    "end_to_end_with_load_and_writes": 4.029960489016958
+  },
+  "versions": {
+    "pytorch": "2.2.2",
+    "torch_cuda": "12.1",
+    "opencv": "4.6.0"
+  }
+}
