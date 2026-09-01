@@ -8,8 +8,12 @@
     "filename": "geoformer.ckpt",
     "source": "official repository README Google Drive link",
     "sha256": null,
-    "status": "not downloaded"
+    "status": "downloaded_by_user; pending placement and checksum verification"
   },
-  "adapter_modifications": [],
-  "environment": "pending"
+  "adapter_modifications": [
+    "Official model modules are imported without executing the hard-coded demo at the end of inference.py",
+    "Official FIRE grayscale short-side-768 preprocessing is reproduced in the adapter",
+    "Matches are mapped back to FIMD query coordinates before shared RANSAC and quadratic fitting"
+  ],
+  "environment": "envs/geoformer.yaml"
 }

@@ -1,0 +1,25 @@
+method: GeoFormer
+official_commit: 8b9506e6e9c0e61848724955fb514824039b1ff7
+weight: third_party/GeoFormer/saved_ckpt/geoformer.ckpt
+weight_sha256: pending_server_verification
+
+input:
+  query: t
+  reference: r
+  resize_reference_to_query: true
+  preprocessing: official_grayscale
+  model_short_side: 768
+
+geoformer:
+  match_threshold: 0.2
+
+geometry:
+  model: quadratic
+  prefilter: homography_ransac
+  ransac_threshold_px: 5.0
+  minimum_quadratic_points: 6
+
+smoke_test:
+  pair_id: "02"
+  device: cuda:0
+  status: pending
