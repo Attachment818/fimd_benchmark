@@ -5,11 +5,23 @@
   "branch_at_download": "master",
   "downloaded_at": "2026-09-01T20:00:00+08:00",
   "weight": {
-    "filename": null,
+    "filename": [
+      "ncnet_pfpascal.pth.tar",
+      "ncnet_ivd.pth.tar"
+    ],
     "source": "official trained_models download scripts",
     "sha256": null,
-    "status": "checkpoint choice not yet frozen"
+    "status": "both official variants pending one-pair precheck"
   },
-  "adapter_modifications": [],
-  "environment": "pending"
+  "checkpoint_selection": {
+    "status": "not frozen",
+    "reason": "The paper states default settings but does not identify PF-Pascal or IVD; historical outputs do not retain checkpoint metadata",
+    "precheck": "Run both official variants only on FIMD02 and record both outcomes"
+  },
+  "adapter_modifications": [
+    "Official model and 4D correlation modules are imported without editing third_party code",
+    "The redundant torchvision ResNet download is suppressed because the official NCNet checkpoint contains the complete feature extractor",
+    "Official bidirectional correlation-grid matches are mapped back to FIMD query coordinates before shared RANSAC and quadratic fitting"
+  ],
+  "environment": "envs/ncnet.yaml"
 }

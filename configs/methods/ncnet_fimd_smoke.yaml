@@ -1,0 +1,31 @@
+method: NCNet
+official_commit: 116a9141f3a5ae16affa1f7c3c9f83899960ea3e
+
+input:
+  query: t
+  reference: r
+  resize_reference_to_query: true
+  preprocessing: official_imagenet_rgb_normalization
+  model_width: 400
+  model_height: 400
+
+matching:
+  directions: both
+  duplicate_policy: retain_highest_score
+
+geometry:
+  model: quadratic
+  prefilter: homography_ransac
+  ransac_threshold_px: 5.0
+  minimum_quadratic_points: 6
+
+checkpoint_precheck:
+  rationale: paper_and_history_do_not_record_which_official_checkpoint_was_used
+  pair_id: "02"
+  variants:
+    pfpascal:
+      path: third_party/NCNet/trained_models/ncnet_pfpascal.pth.tar
+      status: pending
+    ivd:
+      path: third_party/NCNet/trained_models/ncnet_ivd.pth.tar
+      status: pending
