@@ -1,0 +1,56 @@
+{
+  "pair_id": "02",
+  "status": "success",
+  "direction": "query_t_to_resized_reference_r",
+  "geometry": "quadratic",
+  "device": "cuda:0",
+  "checkpoint_variant": "pfpascal",
+  "preprocessing": "official_imagenet_rgb_normalization",
+  "model_input_size": [
+    400,
+    400
+  ],
+  "correlation_shape": [
+    25,
+    25,
+    25,
+    25
+  ],
+  "reference_scale_x": 0.654320987654321,
+  "reference_scale_y": 0.654320987654321,
+  "bidirectional_unique_matches": 644,
+  "ransac_inliers": 607,
+  "control_point_errors_px": [
+    45.27630291991583,
+    53.69294911423779,
+    59.906694711675826,
+    42.96386049842609,
+    39.07107042856255,
+    47.753370483959934,
+    27.952171356463104,
+    10.746450873385912,
+    27.52899844197142,
+    20.173194611002803,
+    3.6923694884976386,
+    30.278726026450652
+  ],
+  "mle_px": 34.0863465795458,
+  "timing_seconds": {
+    "preprocessing": 0.31750581797678024,
+    "model_load": 1.7359256430063397,
+    "inference": 0.8745779289165512,
+    "matching": 0.08256364706903696,
+    "geometry_and_warp": 0.29737281310372055,
+    "end_to_end_with_load_and_writes": 3.606632367009297
+  },
+  "versions": {
+    "pytorch": "2.2.2",
+    "torch_cuda": "12.1",
+    "torchvision": "0.17.2",
+    "opencv": "4.10.0"
+  },
+  "compatibility": {
+    "skip_redundant_torchvision_resnet_download": true,
+    "official_core_modified": false
+  }
+}
