@@ -1,0 +1,37 @@
+{
+  "pair_id": "02",
+  "status": "success",
+  "direction": "query_t_to_resized_reference_r",
+  "geometry": "quadratic",
+  "preprocessing": "green_clahe",
+  "sift_nfeatures": 5000,
+  "sift_contrast_threshold": 0.01,
+  "reference_scale_x": 0.654320987654321,
+  "reference_scale_y": 0.654320987654321,
+  "query_keypoints": 5000,
+  "reference_keypoints": 5000,
+  "ratio_test_matches": 188,
+  "ransac_inliers": 98,
+  "ransac_threshold_px": 5.0,
+  "control_point_errors_px": [
+    5.726257953476387,
+    1.8202066242393387,
+    8.533419463671637,
+    3.3885150241421336,
+    5.743204733398369,
+    4.34011369294636,
+    3.0979204346674774,
+    4.5838891087074405,
+    1.818201820013924,
+    2.526025135250609,
+    2.423577855054175,
+    4.869684402666433
+  ],
+  "mle_px": 4.072584687352857,
+  "timing_seconds": {
+    "preprocessing": 0.07520069999736734,
+    "feature_and_matching": 0.9601196000003256,
+    "geometry": 0.002234699990367517,
+    "end_to_end_with_writes": 1.5819701999862446
+  }
+}
