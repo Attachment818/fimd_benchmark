@@ -54,6 +54,17 @@
       "ransac_inliers": 544,
       "mle_px": 34.086346579628646,
       "run_directory": "outputs/NCNet/20260902_123613_881876_pair02_ncnet_ivd_quadratic_smoke"
+    },
+    {
+      "pair_id": "68",
+      "checkpoint_variant": "pfpascal",
+      "status": "passed_but_inaccurate",
+      "identity_baseline_mle_px": 247.618049754686,
+      "matches": 844,
+      "ransac_inliers": 159,
+      "mle_px": 93.96502484510607,
+      "run_directory": "outputs/NCNet/20260902_124124_721605_pair68_ncnet_pfpascal_quadratic_smoke"
     }
-  ]
+  ],
+  "validation_note": "The independently computed FIMD02 identity baseline is 34.08634657980977 px and matches both checkpoint results point-for-point. FIMD68 improves over its 247.618049754686 px identity baseline but remains inaccurate. This supports method/domain failure rather than a coordinate-direction error."
 }
