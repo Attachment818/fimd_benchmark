@@ -26,8 +26,26 @@ checkpoint_precheck:
     pfpascal:
       path: third_party/NCNet/trained_models/ncnet_pfpascal.pth.tar
       sha256: cd5b5951ebb25ec255d2e4ac80d66ad37ad6b34f8c7d7560a4674f5062455fdb
-      status: pending
+      status: passed_but_near_identity
+      run_directory: outputs/NCNet/20260902_123505_687473_pair02_ncnet_pfpascal_quadratic_smoke
+      bidirectional_unique_matches: 644
+      ransac_inliers: 607
+      mle_px: 34.0863465795458
     ivd:
       path: third_party/NCNet/trained_models/ncnet_ivd.pth.tar
       sha256: ef116bfef12106a9bf7e867b34ee474cb49dd09c9f376294abc889dc1edff969
-      status: pending
+      status: passed_but_near_identity
+      run_directory: outputs/NCNet/20260902_123613_881876_pair02_ncnet_ivd_quadratic_smoke
+      bidirectional_unique_matches: 681
+      ransac_inliers: 544
+      mle_px: 34.086346579628646
+
+selected_checkpoint:
+  variant: pfpascal
+  reason: official_primary_default_and_consistent_with_historical_near_identity_behavior
+
+secondary_smoke_test:
+  pair_id: "68"
+  checkpoint_variant: pfpascal
+  device: cuda:0
+  status: pending

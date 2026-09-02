@@ -17,9 +17,9 @@
     "status": "both official variants verified; pending one-pair precheck"
   },
   "checkpoint_selection": {
-    "status": "not frozen",
+    "status": "PF-Pascal selected after one-pair comparison",
     "reason": "The paper states default settings but does not identify PF-Pascal or IVD; historical outputs do not retain checkpoint metadata",
-    "precheck": "Run both official variants only on FIMD02 and record both outcomes"
+    "precheck_result": "Both official variants produced the same near-identity FIMD02 transform and MLE; PF-Pascal is the official primary/default evaluation model"
   },
   "adapter_modifications": [
     "Official model and 4D correlation modules are imported without editing third_party code",
@@ -35,5 +35,25 @@
     "pytorch_cuda": "12.1",
     "opencv": "4.10.0",
     "numpy": "1.26.4"
-  }
+  },
+  "smoke_tests": [
+    {
+      "pair_id": "02",
+      "checkpoint_variant": "pfpascal",
+      "status": "passed_but_near_identity",
+      "matches": 644,
+      "ransac_inliers": 607,
+      "mle_px": 34.0863465795458,
+      "run_directory": "outputs/NCNet/20260902_123505_687473_pair02_ncnet_pfpascal_quadratic_smoke"
+    },
+    {
+      "pair_id": "02",
+      "checkpoint_variant": "ivd",
+      "status": "passed_but_near_identity",
+      "matches": 681,
+      "ransac_inliers": 544,
+      "mle_px": 34.086346579628646,
+      "run_directory": "outputs/NCNet/20260902_123613_881876_pair02_ncnet_ivd_quadratic_smoke"
+    }
+  ]
 }
