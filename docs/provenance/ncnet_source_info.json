@@ -10,8 +10,11 @@
       "ncnet_ivd.pth.tar"
     ],
     "source": "official trained_models download scripts",
-    "sha256": null,
-    "status": "both official variants pending one-pair precheck"
+    "sha256": {
+      "ncnet_pfpascal.pth.tar": "cd5b5951ebb25ec255d2e4ac80d66ad37ad6b34f8c7d7560a4674f5062455fdb",
+      "ncnet_ivd.pth.tar": "ef116bfef12106a9bf7e867b34ee474cb49dd09c9f376294abc889dc1edff969"
+    },
+    "status": "both official variants verified; pending one-pair precheck"
   },
   "checkpoint_selection": {
     "status": "not frozen",
@@ -23,5 +26,14 @@
     "The redundant torchvision ResNet download is suppressed because the official NCNet checkpoint contains the complete feature extractor",
     "Official bidirectional correlation-grid matches are mapped back to FIMD query coordinates before shared RANSAC and quadratic fitting"
   ],
-  "environment": "envs/ncnet.yaml"
+  "environment": {
+    "specification": "envs/ncnet.yaml",
+    "name": "fimd_ncnet",
+    "python": "3.10",
+    "pytorch": "2.2.2",
+    "torchvision": "0.17.2",
+    "pytorch_cuda": "12.1",
+    "opencv": "4.10.0",
+    "numpy": "1.26.4"
+  }
 }

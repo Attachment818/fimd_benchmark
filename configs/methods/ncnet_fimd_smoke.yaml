@@ -25,7 +25,9 @@ checkpoint_precheck:
   variants:
     pfpascal:
       path: third_party/NCNet/trained_models/ncnet_pfpascal.pth.tar
+      sha256: cd5b5951ebb25ec255d2e4ac80d66ad37ad6b34f8c7d7560a4674f5062455fdb
       status: pending
     ivd:
       path: third_party/NCNet/trained_models/ncnet_ivd.pth.tar
+      sha256: ef116bfef12106a9bf7e867b34ee474cb49dd09c9f376294abc889dc1edff969
       status: pending
