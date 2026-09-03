@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -30,6 +31,8 @@ def parse_args():
     parser.add_argument("--panel-height", type=int, default=600)
     parser.add_argument("--header-height", type=int, default=46)
     parser.add_argument("--font-size", type=int, default=25)
+    parser.add_argument("--marker-radius", type=int, default=7)
+    parser.add_argument("--marker-width", type=int, default=2)
     return parser.parse_args()
 
 
@@ -42,6 +45,93 @@ def load_font(size: int):
     return ImageFont.load_default()
 
 
+def dilate(mask: np.ndarray, iterations: int = 3) -> np.ndarray:
+    result = mask.copy()
+    for _ in range(iterations):
+        padded = np.pad(result, 1, mode="constant")
+        result = np.logical_or.reduce([
+            padded[dy:dy + result.shape[0], dx:dx + result.shape[1]]
+            for dy in range(3) for dx in range(3)
+        ])
+    return result
+
+
+def component_centers(mask: np.ndarray, minimum_pixels: int = 30):
+    height, width = mask.shape
+    # Red and green rings overlap in well-registered cases, so one color can
+    # split the other into several arcs. Join nearby arcs before labeling.
+    join_iterations = max(2, round(min(height, width) / 500))
+    connected_mask = dilate(mask, iterations=join_iterations)
+    remaining = {y * width + x for y, x in np.argwhere(connected_mask)}
+    centers = []
+    while remaining:
+        seed = remaining.pop()
+        stack = [seed]
+        component = [seed]
+        while stack:
+            value = stack.pop()
+            y, x = divmod(value, width)
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    if not (dx or dy):
+                        continue
+                    ny, nx = y + dy, x + dx
+                    neighbor = ny * width + nx
+                    if 0 <= ny < height and 0 <= nx < width and neighbor in remaining:
+                        remaining.remove(neighbor)
+                        stack.append(neighbor)
+                        component.append(neighbor)
+        if len(component) >= minimum_pixels:
+            ys, xs = zip(*(divmod(value, width) for value in component))
+            centers.append((len(component), float(np.mean(xs)), float(np.mean(ys))))
+    centers.sort(reverse=True)
+    return [(x, y) for _, x, y in centers[:12]]
+
+
+def remove_markers_and_find_red_centers(image: Image.Image, source_name: str):
+    pixels = np.asarray(image.convert("RGB"))
+    red = (
+        (pixels[:, :, 0] > 220)
+        & (pixels[:, :, 1] < 70)
+        & (pixels[:, :, 2] < 70)
+    )
+    green = (
+        (pixels[:, :, 1] > 180)
+        & (pixels[:, :, 0] < 120)
+        & (pixels[:, :, 2] < 120)
+    )
+    red_centers = component_centers(red)
+    if len(red_centers) < 12:
+        raise ValueError(
+            f"{source_name}: could not find 12 red control-point rings; got "
+            f"{len(red_centers)}"
+        )
+
+    marker_mask = dilate(red | green, iterations=3)
+    cleaned = pixels.astype(np.float32).copy()
+    known = ~marker_mask
+    remaining = marker_mask.copy()
+    while remaining.any():
+        padded_values = np.pad(cleaned, ((1, 1), (1, 1), (0, 0)), mode="edge")
+        padded_known = np.pad(known, 1, mode="constant")
+        sums = np.zeros_like(cleaned)
+        counts = np.zeros(marker_mask.shape, dtype=np.float32)
+        for dy in range(3):
+            for dx in range(3):
+                if dx == 1 and dy == 1:
+                    continue
+                neighbor_known = padded_known[dy:dy + known.shape[0], dx:dx + known.shape[1]]
+                sums += padded_values[dy:dy + known.shape[0], dx:dx + known.shape[1]] * neighbor_known[:, :, None]
+                counts += neighbor_known
+        fillable = remaining & (counts > 0)
+        if not fillable.any():
+            raise RuntimeError("Could not repair marker pixels")
+        cleaned[fillable] = sums[fillable] / counts[fillable, None]
+        known[fillable] = True
+        remaining[fillable] = False
+    return Image.fromarray(np.clip(cleaned, 0, 255).astype(np.uint8)), red_centers
+
+
 def main() -> None:
     args = parse_args()
     if args.panel_width <= 0 or args.panel_height <= 0 or args.header_height <= 0:
@@ -52,6 +142,16 @@ def main() -> None:
         output_path = project_root / output_path
 
     font = load_font(args.font_size)
+    pair_root = project_root / "data/FIMD/02_r_t"
+    control_points = np.loadtxt(pair_root / "control_points_02_r_t.txt")
+    reference_width, reference_height = Image.open(pair_root / "02_r.jpg").size
+    query_width, query_height = Image.open(pair_root / "02_t.jpg").size
+    reference_points_normalized = control_points[:, :2] / np.asarray([
+        reference_width, reference_height
+    ])
+    query_points_normalized = control_points[:, 2:] / np.asarray([
+        query_width, query_height
+    ])
     tile_height = args.header_height + args.panel_height
     canvas = Image.new(
         "RGB", (4 * args.panel_width, 2 * tile_height), color="white"
@@ -63,12 +163,41 @@ def main() -> None:
         if not input_path.is_file():
             raise FileNotFoundError(input_path)
         image = Image.open(input_path).convert("RGB")
+        original_width, original_height = image.size
+        image, red_centers = remove_markers_and_find_red_centers(
+            image, relative_path
+        )
+        green_centers = reference_points_normalized * np.asarray([
+            original_width, original_height
+        ])
+        if index == 0:
+            red_centers = query_points_normalized * np.asarray([
+                original_width, original_height
+            ])
         # All FIMD02 originals are 3:2. Historical 3888x3888 exports were
         # vertically stretched; resizing them back to a 3:2 tile restores the
         # original retinal-image aspect ratio for qualitative presentation.
         image = image.resize(
             (args.panel_width, args.panel_height), resample=Image.Resampling.LANCZOS
         )
+        marker_draw = ImageDraw.Draw(image)
+        scale_x = args.panel_width / original_width
+        scale_y = args.panel_height / original_height
+        for centers, color in ((green_centers, "#00ff00"), (red_centers, "#ff0000")):
+            for center_x, center_y in centers:
+                x_center = center_x * scale_x
+                y_center = center_y * scale_y
+                radius = args.marker_radius
+                marker_draw.ellipse(
+                    (
+                        x_center - radius,
+                        y_center - radius,
+                        x_center + radius,
+                        y_center + radius,
+                    ),
+                    outline=color,
+                    width=args.marker_width,
+                )
         column = index % 4
         row = index // 4
         x = column * args.panel_width
